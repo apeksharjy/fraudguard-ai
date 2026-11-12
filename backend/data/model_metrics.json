@@ -1,0 +1,61 @@
+{
+  "model_type": "RandomForestClassifier (Ensemble)",
+  "training_samples": 3000,
+  "test_samples": 1000,
+  "accuracy": 0.988,
+  "precision": 0.9583,
+  "recall": 0.9583,
+  "f1_score": 0.9583,
+  "roc_auc": 0.9991,
+  "confusion_matrix": {
+    "true_negative": 850,
+    "false_positive": 6,
+    "false_negative": 6,
+    "true_positive": 138
+  },
+  "feature_importances": [
+    {
+      "feature": "amount_log",
+      "importance": 0.309
+    },
+    {
+      "feature": "amount",
+      "importance": 0.2391
+    },
+    {
+      "feature": "transactions_last_10_min",
+      "importance": 0.1702
+    },
+    {
+      "feature": "new_device",
+      "importance": 0.0952
+    },
+    {
+      "feature": "hour",
+      "importance": 0.0712
+    },
+    {
+      "feature": "is_night_hour",
+      "importance": 0.0514
+    },
+    {
+      "feature": "location_change",
+      "importance": 0.044
+    },
+    {
+      "feature": "device_and_location",
+      "importance": 0.0199
+    }
+  ],
+  "limitations": [
+    "Trained exclusively on synthetic distributions with simulated anomaly signatures.",
+    "Cannot replace multi-factor authentication or bank-grade KYC databases.",
+    "High amount threshold is static in MVP; real production requires rolling user percentiles.",
+    "Provides an estimated risk probability, not confirmation of actual financial fraud."
+  ],
+  "safeguards": [
+    "Model decisions are paired with transparent reason codes.",
+    "No sensitive payment credentials (PIN, OTP, CVV) are ever accepted or processed.",
+    "All predictions carry visible uncertainty warnings."
+  ]
+}

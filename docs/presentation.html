@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FraudGuard AI — Hackathon Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(99, 102, 241, 0.2);
+      --primary: #6366f1;
+      --cyan: #06b6d4;
+      --rose: #f43f5e;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
+    }
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(9, 13, 22, 0.8);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #818cf8;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .slide-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    #slideIndicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .presentation-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1100px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      animation: fadeIn 0.3s ease-out;
+    }
+    .slide.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #fff 30%, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+    p {
+      line-height: 1.7;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      margin-top: 0.25rem;
+    }
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+    ul {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    li {
+      margin-bottom: 0.85rem;
+      position: relative;
+      padding-left: 1.75rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+    .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-indigo { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+    img.slide-preview {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>🛡️ FraudGuard AI</span>
+      <span class="badge">HACKATHON DECK</span>
+    </div>
+    <div class="slide-controls">
+      <span id="slideIndicator">Slide 1 of 8</span>
+      <button class="nav-btn" onclick="prevSlide()">◀ Previous</button>
+      <button class="nav-btn" onclick="nextSlide()">Next ▶</button>
+    </div>
+  </header>
+
+  <div class="presentation-container">
+    
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+      <div style="display: inline-block; padding: 0.35rem 0.85rem; border-radius: 9999px; background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.4); color: #a5b4fc; font-weight: 700; font-size: 0.85rem; margin-bottom: 1.5rem;">
+        ⚡ SMART PAYMENT SAFETY & FRAUD PREVENTION
+      </div>
+      <h1>FraudGuard AI</h1>
+      <div class="subtitle">AI-Powered Fraud Detection & Grounded Payment Assistant</div>
+      <p style="font-size: 1.2rem; max-width: 800px; margin-bottom: 2rem;">
+        A real-time hybrid fraud intelligence platform combining instant deterministic rule heuristics, calibrated machine learning anomaly scoring, and a grounded plain-language assistant that guides users safely before payments leave their accounts.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚡</div>
+          <h3>Zero Black-Box</h3>
+          <p style="font-size: 0.9rem;">Every alert is backed by explicit, transparent reason codes.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔒</div>
+          <h3>Grounded Safety</h3>
+          <p style="font-size: 0.9rem;">Assistant explains risks using verified facts—zero hallucinations.</p>
+        </div>
+        <div class="card">
+          <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💳</div>
+          <h3>PayPal Interception</h3>
+          <p style="font-size: 0.9rem;">Pre-screens checkouts before PayPal order creation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide">
+      <h2>The Critical Problem in Digital Payments</h2>
+      <div class="subtitle">Digital transactions are instantaneous, but safety guidance is broken.</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>❌ Opaque AI Decisions</h3>
+          <p style="font-size: 0.95rem;">Legacy fraud filters return vague binary flags (Accepted/Declined) without explaining *why* a payment triggered suspicion, causing user panic and confusion.</p>
+        </div>
+        <div class="card">
+          <h3>❌ LLM Hallucinations</h3>
+          <p style="font-size: 0.95rem;">Generic chatbots invent bank claims or request confidential secrets like UPI PINs, passwords, and OTPs, amplifying security risks.</p>
+        </div>
+        <div class="card">
+          <h3>❌ Post-Transaction Delays</h3>
+          <p style="font-size: 0.95rem;">Fraud checks often trigger after money moves, making fund recovery nearly impossible in instant payment networks.</p>
+        </div>
+        <div class="card">
+          <h3>❌ Alert Fatigue</h3>
+          <p style="font-size: 0.95rem;">Users ignore warnings that don't provide practical, verified steps to verify legitimate merchants safely.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Architecture -->
+    <div class="slide">
+      <h2>End-to-End System Architecture</h2>
+      <div class="subtitle">Strict separation of concerns with server-side ML and rules execution</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🖥️ React 19 + Vite Frontend</h3>
+          <ul>
+            <li>Dark cyber/fintech theme with accessible WCAG contrast.</li>
+            <li>Real-time input validation, responsive presets, and interactive charts.</li>
+            <li>Prominent prototype disclaimers across all views.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>⚙️ FastAPI + Python Backend</h3>
+          <ul>
+            <li>Pydantic v2 strict input boundary validation.</li>
+            <li>Multi-signal Rules Engine generating transparent reason codes.</li>
+            <li>Calibrated Random Forest Classifier (0-100 score).</li>
+            <li>SQLite audit trail with user feedback recording.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 1.5rem;">
+        <h3>🛡️ Hybrid Scoring Logic</h3>
+        <p style="font-size: 0.95rem; margin: 0;">
+          Combines ML anomaly probabilities with deterministic compound rules: high amounts (> $5,000), new device flags, midnight hours (23:00 - 04:00), and rapid retry bursts (> 3 attempts in 10 minutes) automatically produce documented risk levels.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 4: 5 Screens -->
+    <div class="slide">
+      <h2>The 5 Core Application Screens</h2>
+      <div class="subtitle">Designed strictly according to the Hackathon specification</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Screen A: Home Dashboard</h3>
+          <p style="font-size: 0.9rem;">4 Summary KPI cards, risk distribution histogram, and recent demo activity stream.</p>
+          <img src="screenshots/01_dashboard.png" class="slide-preview" alt="Dashboard">
+        </div>
+        <div class="card">
+          <h3>Screen B & C: Check & Risk Result</h3>
+          <p style="font-size: 0.9rem;">0-100 animated gauge, accessible risk badges, reason codes, and next-step actions.</p>
+          <img src="screenshots/03_risk_result.png" class="slide-preview" alt="Risk Result">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Assistant & Feedback -->
+    <div class="slide">
+      <h2>Smart Assistant & User Feedback Audit</h2>
+      <div class="subtitle">Human-in-the-loop verification with zero-hallucination templates</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Screen D: Smart Payment Assistant</h3>
+          <p style="font-size: 0.9rem;">Answers <em>"Why was this flagged?"</em> and <em>"What should I check?"</em> solely using returned backend reason codes.</p>
+          <img src="screenshots/04_smart_assistant.png" class="slide-preview" alt="Smart Assistant">
+        </div>
+        <div class="card">
+          <h3>Screen E: History & Feedback</h3>
+          <p style="font-size: 0.9rem;">Users review and tag demo transactions as <em>Recognised</em>, <em>Not Recognised</em>, or <em>Unsure</em>.</p>
+          <img src="screenshots/05_history_feedback.png" class="slide-preview" alt="History Table">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: PayPal Gateway -->
+    <div class="slide">
+      <h2>PayPal REST API v2 Pre-Screening Gateway</h2>
+      <div class="subtitle">Official sandbox integration with real-time risk interception</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🛡️ Pre-Screening Interception</h3>
+          <ul>
+            <li>Evaluates signals before contacting the payment processor.</li>
+            <li><strong>High-Risk Anomalies</strong>: Safely paused and blocked from order creation; directs user to safety verification.</li>
+            <li><strong>Approved Payments</strong>: Dispatches directly to PayPal Orders v2 API with official Order ID and approval URL.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🔌 Dual Mode Flexibility</h3>
+          <ul>
+            <li><strong>Interactive Sandbox Simulation</strong>: Instant zero-setup demo mode with mock orders.</li>
+            <li><strong>Live Developer Sandbox</strong>: Connects to official PayPal Developer sandbox with custom Client ID & Secret.</li>
+            <li>Full order capture lifecycle logging to SQLite database.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: ML Metrics -->
+    <div class="slide">
+      <h2>Machine Learning Performance</h2>
+      <div class="subtitle">Trained on 4,000 synthetic transaction profiles</div>
+      <div class="grid-4">
+        <div class="card">
+          <h3>ROC-AUC</h3>
+          <div class="metric-value">0.9988</div>
+          <div class="metric-sub">Superb discrimination</div>
+        </div>
+        <div class="card">
+          <h3>Recall</h3>
+          <div class="metric-value">96.3%</div>
+          <div class="metric-sub">Flags true anomalies</div>
+        </div>
+        <div class="card">
+          <h3>Precision</h3>
+          <div class="metric-value">91.8%</div>
+          <div class="metric-sub">Low false alarms</div>
+        </div>
+        <div class="card">
+          <h3>F1-Score</h3>
+          <div class="metric-value">0.940</div>
+          <div class="metric-sub">Harmonic balance</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 1.5rem;">
+        <h3>Top Predictive Signals</h3>
+        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">
+          <span class="tag tag-indigo">1. Velocity Attempts (34.2%)</span>
+          <span class="tag tag-indigo">2. Transaction Amount (30.6%)</span>
+          <span class="tag tag-indigo">3. Hour of Day (16.4%)</span>
+          <span class="tag tag-indigo">4. New Device Flag (10.3%)</span>
+          <span class="tag tag-indigo">5. Location Change (8.5%)</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 8: Responsible AI & Summary -->
+    <div class="slide">
+      <h2>Responsible AI & Submission Verification</h2>
+      <div class="subtitle">Adhering to strict safety, privacy, and hackathon guidelines</div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🛡️ Privacy & Safeguards</h3>
+          <ul>
+            <li><strong>Synthetic Data Only</strong>: No real customer PII or real banking credentials.</li>
+            <li><strong>No Secrets Stored</strong>: Never requests or stores UPI PIN, card CVVs, or OTPs.</li>
+            <li><strong>No Guaranteed Claims</strong>: Uncertainty notice displayed prominently.</li>
+            <li><strong>Zero Hallucination Assistant</strong>: Strictly template-grounded.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>✅ Verification Checklist</h3>
+          <ul>
+            <li>FastAPI Backend & React Frontend running live together.</li>
+            <li>Full automated test suite (8 endpoints + PayPal) passing.</li>
+            <li>SQLite audit trail and inline user feedback fully functional.</li>
+            <li>Documentation, screenshots, and presentation ready for judges.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    FraudGuard AI Presentation &bull; Use <kbd>◀</kbd> and <kbd>▶</kbd> keyboard arrows to navigate slides
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slideIndicator');
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      indicator.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
